@@ -91,6 +91,7 @@ static long etx_ioctl(struct file *file, unsigned int cmd, unsigned long arg)
                         break;
                 case RD_VALUE:
                 	fill_structs();
+                	printk("msg = %p\n", msg);
                         if (copy_to_user((struct message *) arg, msg, sizeof(struct message))) {
  				printk("driver - Error copying data to user!\n");
  			} else {
@@ -154,12 +155,13 @@ void fill_structs()
  if (value == -1){
  dv = vmalloc(sizeof(struct devices));
  
- while (pcidv = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, pcidv))
+ while (pcidv = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, pcidv) && i<50)
         {	
-        	//dv[i].a = pcidv->device;
-        	//arr[i] = dv[i].a;
         	dv->number[i] = pcidv->device;;
 		printk(KERN_INFO "pci found %d\n", dv->number[i]);
+		printk(KERN_INFO "i %d\n", i);
+		i++;
+		
 	}
  }
  else{
