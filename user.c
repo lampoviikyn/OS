@@ -29,11 +29,13 @@ int main(int argc, char *argv[])
  printf("Cannot open device file\n");
  return 0;
  }
+ ioctl(fd, WR_VALUE, (pid_t * ) & pid);
+ ioctl(fd, RD_VALUE, (struct message *) &msg);
  if (pid != -1){
  printf("Writing Pid to Driver\n");
- ioctl(fd, WR_VALUE, (pid_t * ) & pid);
+ 
  printf("Reading Value from Driver\n\n");
- ioctl(fd, RD_VALUE, (struct message *) &msg);
+ 
  printf("\nvm_area_struct_info for PID %d: \n", pid);
  printf("\tstart = %lu\n", msg.vma.start);
  printf("\tend = %lu\n", msg.vma.end);
@@ -46,11 +48,10 @@ int main(int argc, char *argv[])
  }
  else{
  printf("Use dmesg to see pci devices\n");
- ioctl(fd, WR_VALUE, (pid_t * ) & pid);
- ioctl(fd, RD_VALUE, (pid_t *) & value);
+
  int i = 0;
  for(int i =0;i<50;i++){
- printf("%d\n",dv.number[i]);
+ printf("%d\n",msg.dv.number[i]);
  }
  }
  printf("\nClosing Driver\n");
