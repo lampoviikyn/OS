@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
  pid_t pid = atoi(argv[1]);
  int fd;
  struct message msg;
+ struct devices dv;
  printf("\nOpening Driver\n");
  fd = open(DEVICE_PATH, O_RDWR);
  if (fd < 0) {
@@ -44,9 +45,13 @@ int main(int argc, char *argv[])
  
  }
  else{
- printf("Use dmesg to see pci devices");
+ printf("Use dmesg to see pci devices\n");
  ioctl(fd, WR_VALUE, (pid_t * ) & pid);
  ioctl(fd, RD_VALUE, (pid_t *) & value);
+ int i = 0;
+ for(int i =0;i<50;i++){
+ printf("%d\n",dv.number[i]);
+ }
  }
  printf("\nClosing Driver\n");
  close(fd);
