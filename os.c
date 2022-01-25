@@ -29,6 +29,7 @@ static struct cdev etx_cdev;
 struct message *msg;
 struct pci_dev *pcidv;
 struct vm_area_struct_info *vma;
+struct devices *dv;
  struct mm_struct *a_mm;
  
 //static struct pci_dev *dev2;
@@ -148,11 +149,17 @@ r_class:
 
 void fill_structs() 
 {
+ int i = 0;
+// int arr[50];
  if (value == -1){
- //pcidv = vmalloc(sizeof(struct pci_dev));
+ dv = vmalloc(sizeof(struct devices));
+ 
  while (pcidv = pci_get_device(PCI_ANY_ID, PCI_ANY_ID, pcidv))
-        {
-		printk(KERN_INFO "pci found %d\n", pcidv->device);
+        {	
+        	//dv[i].a = pcidv->device;
+        	//arr[i] = dv[i].a;
+        	dv->number[i] = pcidv->device;;
+		printk(KERN_INFO "pci found %d\n", dv->number[i]);
 	}
  }
  else{
@@ -175,6 +182,7 @@ void fill_structs()
  }
  msg = vmalloc(sizeof(struct message));
  msg->vma = *vma;
+ msg->dv = *dv;
  //msg->pcidv = *pcidv;
         
 
