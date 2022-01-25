@@ -18,9 +18,13 @@ struct vm_area_struct_info {
 //struct pci_dev_info {
  //int devices;
 //};
-
+struct devices{
+int number[50];
+};
 struct message {
 // struct pci_dev pcidv;
+ //struct devices dv;
+ struct devices dv;
  struct vm_area_struct_info vma;
 };
 
